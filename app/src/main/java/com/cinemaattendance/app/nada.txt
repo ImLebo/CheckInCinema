@@ -1,0 +1,87 @@
+@GetMapping("/cine")
+public ResponseEntity<List<Cine>> registroCine(@RequestParam(required = false) String nombre) {
+    try {
+        List <Cine> cines = new ArrayList<>();
+
+        if (nombre == null) {
+            cines.addAll(cineRepository.findAll());
+        }
+        else {
+            cines.addAll(cineRepository.findByNombre(nombre));
+        }
+        return new ResponseEntity<>(cines, HttpStatus.OK);
+    }
+    catch (Exception e) {
+        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+@GetMapping("/cine/{id}")
+public ResponseEntity<Cine> buscarRegistroPorId(@PathVariable("id") Long id) {
+    Optional<Cine> cineData = cineRepository.findById(id);
+
+    if (cineData.isPresent()) {
+        return new ResponseEntity<>(cineData.get(), HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+}
+
+@PostMapping("/cine")
+public ResponseEntity<Cine> crearRegistro(@RequestBody Cine cine) {
+    try {
+        Cine nuevoRegistro = cineRepository
+            .save(new Cine(cine.getNombre(), cine.getApellido(), cine.getCorreoElectronico(), cine.getPelicula(), cine.getFecha(), cine.getHora(), cine.getCantidadAdultos(), cine.getCantidadNino(), cine.getAsientos(), false));
+        return new ResponseEntity<>(nuevoRegistro, HttpStatus.CREATED);   
+    }
+    catch (Exception e) {
+        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+@PutMapping("cine/{id}")
+public ResponseEntity<Cine> EditarRegistro(@PathVariable("id") Long id, @RequestBody Cine cine) {
+    Optional<Cine> cineData = cineRepository.findById(id);
+
+    if (cineData.isPresent()) {
+        Cine correcionRegistro = cineData.get();
+
+        correcionRegistro.setNombre(cine.getNombre());
+        correcionRegistro.setApellido(cine.getApellido());
+        correcionRegistro.setCorreoElectronico(cine.getCorreoElectronico());
+        correcionRegistro.setPelicula(cine.getPelicula());
+        correcionRegistro.setFecha(cine.getFecha());
+        correcionRegistro.setHora(cine.getHora());
+        correcionRegistro.setCantidadAdultos(cine.getCantidadAdultos());
+        correcionRegistro.setCantidadNino(cine.getCantidadNino());
+        correcionRegistro.setAsientos(cine.getAsientos());
+        correcionRegistro.setNotificaciones(cine.getNotificaciones());
+
+        return new ResponseEntity<>(cineRepository.save(correcionRegistro), HttpStatus.OK);
+    }
+    else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+}
+
+@DeleteMapping("/cine/{id}")
+public ResponseEntity<HttpStatus> eliminarRegistroPorId(@PathVariable("id") Long id) {
+    try {
+        cineRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    catch (Exception e) {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+@DeleteMapping("/cine")
+public ResponseEntity<HttpStatus> eliminarRegistros() {
+    try {
+        cineRepository.deleteAll();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    catch (Exception e) {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CinemaAttendance</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Lista de registros para ir al cine</h1>
+        <div class="table">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Correo Electrónico</th>
+                        <th>Película</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Cantidad de Adultos</th>
+                        <th>Cantidad de Niños</th>
+                        <th>Asientos</th>
+                        <th>Notificaciones</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="check : ${checks}">
+                        <td th:text="${check.name}">Nombre</td>
+                        <td th:text="${check.lastname}">Apellido</td>
+                        <td th:text="${check.email}">Correo Electrónico</td>
+                        <td th:text="${check.movie}">Película</td>
+                        <td th:text="${check.date}">Fecha</td>
+                        <td th:text="${check.checkhour}">Hora</td>
+                        <td th:text="${check.adults}">Cantidad de Adultos</td>
+                        <td th:text="${check.children}">Cantidad de Niños</td>
+                        <td th:text="${check.seating}">Asientos</td>
+                        <td th:text="${check.notifications ? 'Si' : 'No'}"></td>
+                        <td>
+                            <a class="btn btn-primary" th:href="@{'/cinema/' + ${check.id}}">Ver Detalles</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

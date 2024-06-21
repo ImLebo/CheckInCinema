@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalles del Cine</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Detalles del Regisro</h1>
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-3">
+                    <p class="font-weight-bold">Nombre:</p>
+                    <p class="text-muted"><span th:text="${check.name}">Nombre</span></p>
+                </div>
+                <div class="mb-3">
+                    <p class="font-weight-bold">Apellido:</p>
+                    <p class="text-muted"><span th:text="${check.lastname}">Apellido</span></p>
+                </div>
+                <div class="mb-3">
+                    <p class="font-weight-bold">Correo Electrónico:</p>
+                    <p class="text-muted"><span th:text="${check.email}">Correo Electrónico</span></p>
+                </div>
+                <div class="mb-3">
+                    <p class="font-weight-bold">Película:</p>
+                    <p class="text-muted"><span th:text="${check.movie}">Película</span></p>
+                </div>
+                <div class="mb-3">
+                    <p class="font-weight-bold">Fecha:</p>
+                    <p class="text-muted"><span th:text="${check.date}">Fecha</span></p>
+                </div>
+                <div class="mb-3">
+                    <p class="font-weight-bold">Hora:</p>
+                    <p class="text-muted"><span th:text="${check.checkhour}">Hora</span></p>
+                </div>
+                <div class="mb-3">
+                    <p class="font-weight-bold">Cantidad de Adultos:</p>
+                    <p class="text-muted"><span th:text="${check.adults}">Cantidad de Adultos</span></p>
+                </div>
+                <div class="mb-3">
+                    <p class="font-weight-bold">Cantidad de Niños:</p>
+                    <p class="text-muted"><span th:text="${check.children}">Cantidad de Niños</span></p>
+                </div>
+                <div class="mb-3">
+                    <p class="font-weight-bold">Asientos:</p>
+                    <p class="text-muted"><span th:text="${check.seating}">Asientos</span></p>
+                </div>
+                <div class="mb-3">
+                    <p class="font-weight-bold">¿Desea recibir notificaciones sobre futuros eventos?:</p>
+                    <p class="text-muted"><span th:text="${check.notifications ? 'Si' : 'No'}"></span></p>
+                </div>
+                <button class="btn btn-primary" onclick="location.href='/cinema'">Volver a la lista</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
